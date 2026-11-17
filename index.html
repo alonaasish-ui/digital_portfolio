@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alona Asish – Aspiring Embedded Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#eef2ea; --surface:#ffffff; --ink:#12281f; --muted:#4d6458;
+  --board:#0f3d2e; --board-ink:#eef2ea; --copper:#a4602a; --line:#cbd6c8;
+  --done:#2e8b57; --prog:#c98a12; --todo:#8a948d;
+  --head:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0c1a14; --surface:#13271e; --ink:#e6efe8; --muted:#9db3a5;
+    --board:#081f17; --board-ink:#e6efe8; --copper:#d98f52; --line:#25402f;
+    --done:#4fc080; --prog:#e5ac3a; --todo:#7d8a82;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0c1a14; --surface:#13271e; --ink:#e6efe8; --muted:#9db3a5;
+  --board:#081f17; --board-ink:#e6efe8; --copper:#d98f52; --line:#25402f;
+  --done:#4fc080; --prog:#e5ac3a; --todo:#7d8a82;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--copper);outline-offset:3px}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.5rem}
+
+/* hero */
+.hero{background:var(--board);color:var(--board-ink);position:relative;overflow:hidden;padding:4.5rem 0 4rem}
+.hero svg{position:absolute;right:-2rem;top:0;height:100%;width:auto;opacity:.5;pointer-events:none}
+.hero .wrap{position:relative}
+.hero h1{font:800 clamp(2.8rem,9vw,5.5rem)/.98 var(--head);margin:0 0 1rem;letter-spacing:-.02em}
+.hero .role{font:500 clamp(1.15rem,3vw,1.5rem)/1.3 var(--head);color:#e8b789;margin:0 0 .5rem}
+.hero p{max-width:34rem;margin:0 0 1.75rem;color:#cfe0d4}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{display:inline-block;padding:.7rem 1.2rem;border:2px solid #e8b789;border-radius:4px;text-decoration:none;font-weight:500;color:#e8b789}
+.btn.fill{background:#e8b789;color:#0f3d2e}
+.btn:hover{background:#e8b789;color:#0f3d2e}
+
+/* nav */
+nav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+nav .wrap{display:flex;gap:1.25rem;overflow-x:auto;padding-top:.8rem;padding-bottom:.8rem}
+nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-weight:500}
+nav a:hover{color:var(--copper)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:10}
+
+section{padding:3.5rem 0 0}
+h2{font:700 1.9rem/1.15 var(--head);margin:0 0 1.25rem;letter-spacing:-.01em}
+h3{font:700 1.2rem/1.25 var(--head);margin:0 0 .35rem}
+.lead{max-width:40rem;font-size:1.15rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1.25rem}
+.box p{margin:.25rem 0 0;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 0;padding:0;list-style:none}
+.tags li{border:1px solid var(--line);background:var(--bg);border-radius:4px;padding:.15rem .6rem;font-size:.95rem}
+
+/* status LEDs */
+.led{display:inline-flex;align-items:center;gap:.5rem;font-weight:500;font-size:.95rem;margin-bottom:.6rem}
+.led i{width:.75rem;height:.75rem;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 25%,transparent)}
+.on{--c:var(--done)} .wip{--c:var(--prog)} .off{--c:var(--todo)}
+.legend{display:flex;flex-wrap:wrap;gap:1.25rem;margin:0 0 1.25rem;color:var(--muted);font-size:.95rem}
+
+.path{list-style:none;margin:0;padding:0;display:grid;gap:.75rem;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));counter-reset:s}
+.path li{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--copper);border-radius:6px;padding:.9rem 1rem;font-weight:500;counter-increment:s}
+.path li::before{content:counter(s);display:block;font:800 1.5rem var(--head);color:var(--copper)}
+
+footer{margin-top:4rem;background:var(--board);color:var(--board-ink);padding:2.5rem 0}
+footer h2{margin-bottom:.5rem}
+footer a{color:#e8b789}
+.small{font-size:.9rem;color:#a9c0b0;margin-top:1.5rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg viewBox="0 0 400 400" aria-hidden="true" fill="none" stroke="#e8b789" stroke-width="2" stroke-linecap="round">
+    <path d="M400 60H300l-40 40v80l-40 40H120"/><path d="M400 140H340l-30 30v90"/>
+    <path d="M400 320H280l-30-30"/><path d="M200 0v70l-40 40H60"/>
+    <circle cx="120" cy="220" r="7"/><circle cx="60" cy="110" r="7"/><circle cx="310" cy="260" r="7"/><circle cx="250" cy="290" r="7"/>
+  </svg>
+  <div class="wrap">
+    <h1>Alona Asish</h1>
+    <p class="role">Aspiring Embedded Systems Engineer</p>
+    <p>First-year B.Tech Electronics and Communication Engineering student at Lovely Professional University, interested in how hardware and software work together to solve practical problems.</p>
+    <div class="btns">
+      <a class="btn fill" href="#projects">See my projects</a>
+      <a class="btn" href="https://www.linkedin.com/in/alona-asish-9b8417429" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Sections">
+  <div class="wrap">
+    <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#activities">Activities</a><a href="#education">Education</a><a href="#goals">Goals</a><a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="about">
+  <h2>About me</h2>
+  <p class="lead">I want to build a strong foundation in electronics and programming, gain hands-on project experience, and develop reliable embedded solutions.</p>
+  <ul class="tags" aria-label="Strengths">
+    <li>Teamwork</li><li>Adaptability</li><li>Communication</li><li>Willingness to learn</li>
+  </ul>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="grid">
+    <div class="box"><h3>Programming</h3><p>Python (learning, beginner)</p><p>C and Embedded C (next up)</p></div>
+    <div class="box"><h3>Electronics</h3><p>Basic circuit concepts</p><p>Arduino and sensor interfacing (learning)</p></div>
+    <div class="box"><h3>Professional</h3><p>Team collaboration</p><p>Research and documentation</p><p>Presentation basics</p></div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="legend" aria-label="Status key">
+    <span class="led on"><i></i>Done</span><span class="led wip"><i></i>In progress</span><span class="led off"><i></i>Planned</span>
+  </div>
+  <div class="grid">
+    <article class="box">
+      <span class="led off"><i></i>Planned: simulation pending</span>
+      <h3>Smart Home Automation</h3>
+      <p>An IoT system for appliance control, energy management and remote monitoring. It tackles manual appliance control and limited visibility of household energy use.</p>
+      <ul class="tags"><li>Microcontrollers</li><li>Sensors</li><li>IoT</li></ul>
+    </article>
+    <article class="box">
+      <span class="led off"><i></i>Planned</span>
+      <h3>LDR-Based Light Control</h3>
+      <p>Uses a light dependent resistor to sense light intensity and switch an LED through an Arduino.</p>
+      <ul class="tags"><li>Analog reading</li><li>Threshold logic</li><li>LED output</li></ul>
+    </article>
+    <article class="box">
+      <span class="led wip"><i></i>In progress: simulation</span>
+      <h3>Automatic Battery Charging</h3>
+      <p>Simulates charging-status control based on a battery-voltage threshold.</p>
+      <ul class="tags"><li>Circuit simulation</li><li>Voltage monitoring</li><li>Control logic</li></ul>
+    </article>
+  </div>
+</section>
+
+<section id="activities">
+  <h2>Hackathons and activities</h2>
+  <div class="grid">
+    <article class="box">
+      <h3>IP-Sakti Sahayak Hackathon</h3>
+      <p>Project: Multilingual RAG assistant for Ayurveda IP and regulatory guidance.</p>
+      <p>Worked in a six-member team on research and presentation preparation.</p>
+      <ul class="tags"><li>Teamwork</li><li>Organising information</li><li>Presenting</li><li>Problem-solving</li></ul>
+    </article>
+    <article class="box">
+      <h3>GEAR UP Hackathon</h3>
+      <p>Organised by LPU, September 2026. Certificate to be added once issued.</p>
+    </article>
+  </div>
+</section>
+
+<section id="education">
+  <h2>Education</h2>
+  <div class="grid">
+    <div class="box"><h3>B.Tech, Electronics and Communication Engineering</h3><p>Lovely Professional University, Punjab. Expected graduation 2030.</p>
+      <ul class="tags"><li>Engineering Physics</li><li>Engineering Maths</li><li>Electronics fundamentals</li><li>Python</li><li>Digital Electronics</li><li>Microprocessors</li></ul></div>
+    <div class="box"><h3>Class 12, Kerala State Board</h3><p>PCMB / Bio-Maths stream, 95.91%.</p></div>
+  </div>
+</section>
+
+<section id="goals">
+  <h2>Where I’m headed</h2>
+  <p class="lead">I want to design, develop and test electronic systems that combine hardware and software, and in the long run work at semiconductor and embedded-technology companies such as Texas Instruments.</p>
+  <ol class="path" aria-label="Development approach">
+    <li>Learn fundamentals</li><li>Practise with small circuits</li><li>Build projects</li><li>Document results</li><li>Seek internships</li>
+  </ol>
+  <ul class="tags" aria-label="Skills to develop">
+    <li>C programming</li><li>Embedded C</li><li>Microcontrollers</li><li>Digital electronics</li><li>Sensors</li><li>Communication protocols</li>
+  </ul>
+</section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Get in touch</h2>
+    <p>Open to internships, project collaborations and advice from people working in embedded systems.</p>
+    <p><a href="https://www.linkedin.com/in/alona-asish-9b8417429" rel="noopener">linkedin.com/in/alona-asish-9b8417429</a></p>
+    <p class="small">Alona Asish, B.Tech ECE, Lovely Professional University</p>
+  </div>
+</footer>
+
+</body>
+</html>
